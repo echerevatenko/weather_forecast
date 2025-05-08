@@ -1,0 +1,29 @@
+services:
+  backend:
+    build:
+      context: backend
+    ports:
+      - 3000:3000
+    volumes:
+      - ./backend/src:/app/src
+      - ./backend/package.json:/app/package.json
+      - ./backend/package-lock.json:/app/package-lock.json
+  frontend:
+    build:
+      context: frontend
+    ports:
+      - 5000:5000
+    volumes:
+      - ./frontend:/app
+      - dist:/app/dist
+      - node_modules:/app/node_modules
+    networks:
+      - public
+    depends_on:
+      - backend
+volumes:
+  dist: {}
+  node_modules: {}
+networks:
+  public:
+  private:
